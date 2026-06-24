@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%231B75BB'/><text x='50' y='68' font-size='54' text-anchor='middle' fill='%23FFFCE8' font-family='Georgia,serif'>B</text></svg>">
+<title>Anecdotal &times; BGC Permian Basin &mdash; Website Audit &amp; Proposal</title>
+<style>
+:root {
+  --cream:      #FFFCE8;
+  --ink:        #000000;
+  --ink-soft:   #333333;
+  --sage:       #1B75BB;
+  --sage-light: #6FB1E0;
+  --sage-wash:  #EAF3FA;
+  --marigold:   #F2A900;
+  --warm-white: #FFFFFF;
+  --rule:       rgba(0,0,0,0.12);
+  --serif:      Georgia, 'Times New Roman', serif;
+  --sans:       -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { font-family:var(--sans); font-weight:300; background:var(--warm-white); color:var(--ink); overflow-x:hidden; }
+
+/* SLIDE SHELL */
+.slide {
+  position:relative; width:100%; min-height:100vh;
+  padding:clamp(48px,7vw,96px) clamp(40px,8vw,120px);
+  margin-bottom:2px; background:var(--warm-white);
+  overflow:hidden; display:flex; flex-direction:column; justify-content:center;
+}
+.slide::before {
+  content:''; position:absolute; inset:0;
+  background-image:radial-gradient(circle,rgba(0,0,0,0.055) 1px,transparent 1px);
+  background-size:24px 24px; pointer-events:none;
+}
+.slide--dark { background:var(--ink); color:var(--cream); }
+.slide--dark::before { background-image:radial-gradient(circle,rgba(255,255,255,0.06) 1px,transparent 1px); background-size:24px 24px; }
+.slide--sage { background:var(--sage-wash); }
+
+/* TYPOGRAPHY */
+.eyebrow {
+  font-family:var(--sans); font-size:10px; font-weight:500;
+  letter-spacing:0.18em; text-transform:uppercase; opacity:0.5; margin-bottom:20px;
+}
+.slide--dark .eyebrow { opacity:0.4; }
+.display {
+  font-family:var(--serif); font-size:clamp(38px,5.5vw,64px);
+  font-weight:400; line-height:1.08; letter-spacing:-0.02em;
+}
+.display em { font-style:italic; color:var(--sage); }
+.slide--dark .display em { color:var(--sage-light); }
+.display-sm {
+  font-family:var(--serif); font-size:clamp(26px,3.5vw,40px);
+  font-weight:400; line-height:1.15; letter-spacing:-0.02em;
+}
+.display-sm em { font-style:italic; color:var(--sage); }
+.slide--dark .display-sm em { color:var(--sage-light); }
+.body { font-size:15px; line-height:1.7; font-weight:300; max-width:560px; opacity:0.75; margin-top:20px; }
+.body-wide { max-width:720px; }
+
+/* ACCENT */
+.rule { width:48px; height:2px; background:var(--sage); margin:28px 0; }
+.slide--dark .rule { background:var(--sage-light); }
+.slide-num { position:absolute; top:28px; right:36px; font-size:11px; letter-spacing:0.12em; opacity:0.3; font-family:var(--serif); }
+.slide-footer {
+  position:absolute; bottom:28px;
+  left:clamp(40px,8vw,120px); right:clamp(40px,8vw,120px);
+  display:flex; justify-content:space-between; align-items:center;
+  font-size:10px; letter-spacing:0.1em; opacity:0.3;
+}
+
+/* COVER */
+.cover-hero {
+  position:relative; min-height:100vh;
+  background:url('assets/hero-real.jpg') center 40%/cover no-repeat;
+  display:flex; flex-direction:column; justify-content:space-between;
+  padding:clamp(48px,7vw,96px) clamp(40px,6vw,80px); overflow:hidden;
+}
+.cover-hero::before {
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(to top,rgba(0,0,0,0.92) 0%,rgba(0,0,0,0.65) 40%,rgba(0,0,0,0.35) 100%);
+  z-index:0;
+}
+.cover-hero > * { position:relative; z-index:1; }
+.cover-wordmark { display:flex; align-items:center; gap:10px; }
+.cover-wordmark-sep { font-family:var(--serif); font-style:italic; color:rgba(255,255,255,0.6); font-size:16px; }
+.cover-wordmark-client { font-family:var(--sans); font-size:13px; font-weight:400; letter-spacing:0.06em; color:rgba(255,255,255,0.75); }
+.cover-headline { font-family:var(--serif); font-size:clamp(48px,7vw,82px); font-weight:400; line-height:1.03; letter-spacing:-0.02em; color:var(--cream); }
+.cover-headline em { font-style:italic; color:var(--sage-light); }
+.cover-sub { font-size:16px; font-weight:300; color:rgba(255,255,255,0.78); margin-top:20px; max-width:560px; line-height:1.65; }
+.cover-bottom-label { font-size:9px; letter-spacing:0.2em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin-bottom:6px; }
+.cover-bottom-title { font-family:var(--serif); font-size:22px; color:var(--cream); line-height:1; margin-bottom:4px; }
+.cover-bottom-date { font-size:12px; color:rgba(255,255,255,0.55); }
+.cover-pills { display:flex; gap:8px; flex-wrap:wrap; margin-top:28px; }
+.cover-pill { font-size:10px; letter-spacing:0.12em; text-transform:uppercase; padding:6px 14px; border:1px solid rgba(255,255,255,0.3); color:rgba(255,255,255,0.7); }
+
+/* LAYOUT */
+.two-col { display:grid; grid-template-columns:1fr 1fr; gap:56px; margin-top:44px; align-items:start; }
+.card-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; margin-top:44px; }
+.card { background:var(--cream); padding:32px 28px; position:relative; overflow:hidden; transition:transform 0.3s ease, box-shadow 0.3s ease; }
+.card:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(0,0,0,0.08); }
+.slide--dark .card:hover { box-shadow:0 8px 24px rgba(0,0,0,0.3); }
+.slide--sage .card { background:#fff; }
+.card-num { font-family:var(--serif); font-size:44px; color:var(--sage); opacity:0.5; line-height:1; margin-bottom:12px; }
+.card-title { font-family:var(--serif); font-size:18px; margin-bottom:10px; line-height:1.2; }
+.card-body { font-size:13px; line-height:1.65; font-weight:300; opacity:0.7; }
+.card--accent-top::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:var(--sage); }
+
+/* ACCORDION */
+.accordion-list { margin-top:40px; display:flex; flex-direction:column; gap:0; max-width:720px; }
+.acc-item { border-bottom:1px solid rgba(255,255,255,0.08); }
+.acc-item:first-child { border-top:1px solid rgba(255,255,255,0.08); }
+.acc-header {
+  display:flex; align-items:center; gap:16px; padding:18px 0; cursor:pointer;
+  list-style:none; user-select:none;
+  transition:padding-left 0.3s ease;
+}
+.acc-header::-webkit-details-marker { display:none; }
+.acc-header::marker { display:none; content:''; }
+.acc-item[open] .acc-header { padding-left:4px; }
+.acc-num { font-family:var(--serif); font-size:14px; color:var(--sage-light); opacity:0.5; min-width:24px; transition:opacity 0.3s ease; }
+.acc-item[open] .acc-num { opacity:0.8; }
+.acc-title { font-family:var(--serif); font-size:17px; color:var(--cream); flex:1; line-height:1.25; transition:color 0.3s ease; }
+.acc-icon {
+  font-family:var(--sans); font-size:18px; color:var(--sage-light); opacity:0.5;
+  transition:transform 0.3s ease, opacity 0.3s ease;
+  flex-shrink:0; width:20px; text-align:center;
+}
+.acc-item[open] .acc-icon { transform:rotate(45deg); opacity:0.8; }
+.acc-body-wrap {
+  display:grid; grid-template-rows:0fr;
+  transition:grid-template-rows 0.35s cubic-bezier(0.16,1,0.3,1);
+}
+.acc-item[open] .acc-body-wrap { grid-template-rows:1fr; }
+.acc-body {
+  overflow:hidden;
+  font-size:14px; line-height:1.7; font-weight:300; color:rgba(255,252,232,0.55);
+  padding-left:40px; max-width:600px;
+  border-left:2px solid transparent;
+  transition:border-color 0.3s ease;
+}
+.acc-item[open] .acc-body { border-left-color:var(--sage-light); padding-bottom:22px; }
+.acc-header:hover .acc-title { color:var(--sage-light); }
+.acc-header:hover .acc-icon { opacity:0.8; }
+.acc-header:hover .acc-num { opacity:0.7; }
+
+/* DELIVERABLE LIST */
+.deliverable-list { list-style:none; display:flex; flex-direction:column; gap:0; }
+.deliverable-list li { padding:13px 0; border-bottom:1px solid var(--rule); display:flex; flex-direction:column; gap:3px; }
+.deliverable-list li:last-child { border-bottom:none; }
+.d-title { font-size:13.5px; font-weight:500; color:var(--ink); display:flex; align-items:center; gap:10px; line-height:1.3; }
+.d-title::before { content:''; display:inline-block; width:14px; height:2px; background:var(--sage); flex-shrink:0; }
+.d-body { font-size:12.5px; font-weight:300; color:var(--ink-soft); line-height:1.6; padding-left:24px; opacity:0.7; }
+
+/* PERSONA CARDS */
+.persona-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; margin-top:36px; }
+.persona-grid-bottom { display:grid; grid-template-columns:repeat(2,1fr); gap:2px; margin-top:2px; }
+.persona-card { background:var(--cream); padding:28px 24px; display:flex; flex-direction:column; gap:8px; transition:transform 0.3s ease; }
+.persona-card:hover { transform:translateY(-2px); }
+.persona-card:nth-child(odd) { background:var(--cream); }
+.persona-card:nth-child(even) { background:var(--sage-wash); }
+.persona-grid .persona-card:nth-child(1) { background:var(--ink); color:var(--cream); }
+.persona-grid .persona-card:nth-child(3) { background:var(--ink); color:var(--cream); }
+.persona-grid-bottom .persona-card:nth-child(1) { background:var(--sage-wash); }
+.persona-grid-bottom .persona-card:nth-child(2) { background:var(--ink); color:var(--cream); }
+.p-num { font-size:10px; letter-spacing:0.14em; text-transform:uppercase; opacity:0.4; }
+.persona-grid .persona-card:nth-child(1) .p-num,
+.persona-grid .persona-card:nth-child(3) .p-num,
+.persona-grid-bottom .persona-card:nth-child(2) .p-num { color:var(--sage-light); opacity:0.6; }
+.p-name { font-family:var(--serif); font-size:18px; line-height:1.2; margin-bottom:4px; }
+.persona-grid .persona-card:nth-child(1) .p-name,
+.persona-grid .persona-card:nth-child(3) .p-name,
+.persona-grid-bottom .persona-card:nth-child(2) .p-name { color:var(--cream); }
+.p-desc { font-size:12.5px; line-height:1.6; font-weight:300; opacity:0.7; flex:1; }
+.persona-grid .persona-card:nth-child(1) .p-desc,
+.persona-grid .persona-card:nth-child(3) .p-desc,
+.persona-grid-bottom .persona-card:nth-child(2) .p-desc { color:rgba(255,252,232,0.65); opacity:1; }
+.p-tags { display:flex; flex-wrap:wrap; gap:4px; margin-top:8px; }
+.p-tag { font-size:9px; letter-spacing:0.08em; text-transform:uppercase; padding:3px 7px; background:rgba(27,117,187,0.1); color:var(--sage); }
+.persona-grid .persona-card:nth-child(1) .p-tag,
+.persona-grid .persona-card:nth-child(3) .p-tag,
+.persona-grid-bottom .persona-card:nth-child(2) .p-tag { background:rgba(255,255,255,0.1); color:var(--sage-light); }
+
+/* IMPORTANCE CALLOUT */
+.importance-callout {
+  background:var(--ink); padding:28px 32px; margin-bottom:24px;
+  display:grid; grid-template-columns:auto 1fr; gap:24px; align-items:center;
+}
+.importance-mark {
+  width:80px; height:80px; border-radius:4px; overflow:hidden; flex-shrink:0;
+}
+.importance-mark img { width:100%; height:100%; object-fit:cover; }
+.importance-text { font-size:14px; line-height:1.7; color:rgba(255,252,232,0.75); }
+.importance-text strong { color:var(--sage-light); font-weight:500; }
+
+/* PERSONA NOTE */
+.persona-note { margin-top:16px; padding:14px 20px; border-left:3px solid var(--sage); background:var(--cream); }
+.persona-note p { font-size:13px; font-style:italic; opacity:0.6; margin:0; line-height:1.65; }
+
+/* CONTENT CATEGORY CARDS */
+.cat-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; margin-top:44px; }
+.cat-card { padding:28px 24px; display:flex; flex-direction:column; transition:transform 0.3s ease; }
+.cat-card:hover { transform:translateY(-2px); }
+.cat-card:nth-child(1) { background:var(--ink); color:var(--cream); }
+.cat-card:nth-child(2) { background:var(--sage); color:var(--cream); }
+.cat-card:nth-child(3) { background:var(--warm-white); }
+.cat-card:nth-child(4) { background:var(--sage-wash); }
+.cat-card:nth-child(5) { background:var(--ink); color:var(--cream); }
+.cat-card:nth-child(6) { background:var(--sage); color:var(--cream); }
+.cc-num { font-size:9px; letter-spacing:0.18em; text-transform:uppercase; margin-bottom:8px; }
+.cat-card:nth-child(1) .cc-num,
+.cat-card:nth-child(2) .cc-num,
+.cat-card:nth-child(5) .cc-num,
+.cat-card:nth-child(6) .cc-num { color:var(--sage-light); }
+.cat-card:nth-child(3) .cc-num,
+.cat-card:nth-child(4) .cc-num { color:var(--sage); opacity:0.7; }
+.cc-title { font-family:var(--serif); font-size:20px; line-height:1.2; margin-bottom:8px; }
+.cc-desc { font-size:12.5px; line-height:1.6; margin-bottom:14px; font-weight:300; }
+.cat-card:nth-child(1) .cc-desc,
+.cat-card:nth-child(2) .cc-desc,
+.cat-card:nth-child(5) .cc-desc,
+.cat-card:nth-child(6) .cc-desc { opacity:0.6; }
+.cat-card:nth-child(3) .cc-desc,
+.cat-card:nth-child(4) .cc-desc { opacity:0.65; }
+.cc-ideas { list-style:none; display:flex; flex-direction:column; gap:4px; flex:1; }
+.cc-ideas li { font-size:11.5px; line-height:1.5; padding-left:14px; position:relative; }
+.cc-ideas li::before { content:'\2013'; position:absolute; left:0; }
+.cat-card:nth-child(1) .cc-ideas li,
+.cat-card:nth-child(2) .cc-ideas li,
+.cat-card:nth-child(5) .cc-ideas li,
+.cat-card:nth-child(6) .cc-ideas li { opacity:0.5; }
+.cat-card:nth-child(1) .cc-ideas li::before,
+.cat-card:nth-child(2) .cc-ideas li::before,
+.cat-card:nth-child(5) .cc-ideas li::before,
+.cat-card:nth-child(6) .cc-ideas li::before { color:var(--sage-light); }
+.cat-card:nth-child(3) .cc-ideas li,
+.cat-card:nth-child(4) .cc-ideas li { opacity:0.6; }
+.cat-card:nth-child(3) .cc-ideas li::before,
+.cat-card:nth-child(4) .cc-ideas li::before { color:var(--sage); }
+
+/* CAPTURE CARDS */
+.capture-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; margin-top:44px; }
+.cap-card { padding:28px 24px; display:flex; flex-direction:column; gap:10px; transition:transform 0.3s ease; }
+.cap-card:hover { transform:translateY(-2px); }
+.cap-card:nth-child(1) { background:var(--ink); color:var(--cream); }
+.cap-card:nth-child(2) { background:var(--sage); color:var(--cream); }
+.cap-card:nth-child(3) { background:var(--cream); }
+.cap-card:nth-child(4) { background:var(--sage-wash); }
+.cap-card:nth-child(5) { background:var(--ink); color:var(--cream); }
+.cap-card:nth-child(6) { background:var(--sage); color:var(--cream); }
+.cap-num { font-family:var(--serif); font-size:36px; line-height:1; opacity:0.3; }
+.cap-card:nth-child(1) .cap-num,
+.cap-card:nth-child(2) .cap-num,
+.cap-card:nth-child(5) .cap-num,
+.cap-card:nth-child(6) .cap-num { color:var(--sage-light); opacity:0.4; }
+.cap-card:nth-child(3) .cap-num,
+.cap-card:nth-child(4) .cap-num { color:var(--sage); opacity:0.35; }
+.cap-title { font-family:var(--serif); font-size:18px; line-height:1.2; }
+.cap-body { font-size:12.5px; line-height:1.65; font-weight:300; flex:1; }
+.cap-card:nth-child(1) .cap-body,
+.cap-card:nth-child(2) .cap-body,
+.cap-card:nth-child(5) .cap-body,
+.cap-card:nth-child(6) .cap-body { opacity:0.65; }
+.cap-card:nth-child(3) .cap-body,
+.cap-card:nth-child(4) .cap-body { opacity:0.7; }
+
+/* OUTCOMES */
+.outcomes-grid { display:grid; grid-template-columns:1fr 1fr; gap:2px; margin-top:44px; }
+.outcome-item { padding:24px 28px; background:rgba(255,255,255,0.03); display:flex; gap:16px; align-items:flex-start; transition:background 0.3s ease; }
+.outcome-item:nth-child(even) { background:rgba(255,255,255,0.06); }
+.outcome-item:hover { background:rgba(255,255,255,0.09); }
+.outcome-item.expand { background:var(--sage); grid-column:1 / -1; }
+.outcome-item.expand:hover { background:var(--sage); }
+.oi-arrow {
+  width:32px; height:32px; border-radius:50%; flex-shrink:0;
+  background:rgba(255,255,255,0.06); display:flex; align-items:center; justify-content:center;
+  margin-top:2px;
+}
+.oi-arrow svg { width:14px; height:14px; }
+.outcome-item.expand .oi-arrow {
+  width:36px; height:36px; background:rgba(255,255,255,0.15);
+}
+.outcome-item.expand .oi-arrow svg { width:16px; height:16px; }
+.oi-head { font-family:var(--serif); font-size:19px; color:var(--cream); margin-bottom:4px; line-height:1.2; }
+.oi-body { font-size:12.5px; line-height:1.6; color:rgba(255,252,232,0.5); font-weight:300; }
+.outcome-item.expand .oi-body { color:rgba(255,255,255,0.8); font-size:13.5px; }
+
+/* CLOSING HERO */
+.closing-hero {
+  position:relative; min-height:100vh;
+  background:url('assets/hero-real.jpg') center 50%/cover no-repeat;
+  display:flex; flex-direction:column; justify-content:space-between;
+  padding:clamp(48px,7vw,96px) clamp(40px,6vw,80px); overflow:hidden;
+}
+.closing-hero::before {
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(to top,rgba(0,0,0,0.92) 0%,rgba(0,0,0,0.72) 40%,rgba(0,0,0,0.5) 100%);
+  z-index:0;
+}
+.closing-hero > * { position:relative; z-index:1; }
+
+/* STAGGERED CARD ANIMATIONS */
+.js-loaded [data-stagger] > *:nth-child(1) { transition-delay:0.05s; }
+.js-loaded [data-stagger] > *:nth-child(2) { transition-delay:0.12s; }
+.js-loaded [data-stagger] > *:nth-child(3) { transition-delay:0.19s; }
+.js-loaded [data-stagger] > *:nth-child(4) { transition-delay:0.26s; }
+.js-loaded [data-stagger] > *:nth-child(5) { transition-delay:0.33s; }
+.js-loaded [data-stagger] > *:nth-child(6) { transition-delay:0.40s; }
+.js-loaded [data-stagger] > * {
+  opacity:0; transform:translateY(20px);
+  transition:opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1);
+}
+.js-loaded [data-stagger].is-visible > * { opacity:1; transform:translateY(0); }
+
+/* ANIMATION */
+[data-reveal] { opacity:1; transform:none; }
+.js-loaded [data-reveal] {
+  opacity:0; transform:translateY(28px);
+  transition:opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1);
+}
+.js-loaded [data-reveal].is-visible { opacity:1; transform:translateY(0); }
+.js-loaded [data-reveal][data-delay="1"] { transition-delay:0.12s; }
+.js-loaded [data-reveal][data-delay="2"] { transition-delay:0.24s; }
+.js-loaded [data-reveal][data-delay="3"] { transition-delay:0.36s; }
+.js-loaded [data-reveal][data-delay="4"] { transition-delay:0.48s; }
+.js-loaded [data-reveal][data-delay="5"] { transition-delay:0.60s; }
+.js-loaded [data-reveal][data-delay="6"] { transition-delay:0.72s; }
+.js-loaded [data-reveal][data-delay="7"] { transition-delay:0.84s; }
+.js-loaded .rule[data-reveal] { transform:none; width:0; transition:opacity 0.9s, width 0.5s cubic-bezier(0.16,1,0.3,1); }
+.js-loaded .rule[data-reveal].is-visible { width:48px; }
+
+/* MOBILE */
+@media (max-width:1000px) {
+  .cat-grid, .capture-grid { grid-template-columns:repeat(2,1fr); }
+  .persona-grid { grid-template-columns:repeat(2,1fr); }
+  .persona-grid-bottom { grid-template-columns:1fr; }
+}
+@media (max-width:700px) {
+  .slide { padding:52px 28px; min-height:auto; }
+  .cover-hero, .closing-hero { min-height:100vh; }
+  .card-grid, .cat-grid, .capture-grid, .outcomes-grid, .metric-strip, .two-col { grid-template-columns:1fr !important; }
+  .persona-grid, .persona-grid-bottom { grid-template-columns:1fr; }
+  .importance-callout { grid-template-columns:1fr; text-align:center; }
+  .display { font-size:34px; }
+  .display-sm { font-size:26px; }
+  .outcome-item.expand { grid-column:1; }
+}
+@media (prefers-reduced-motion:reduce) {
+  .js-loaded [data-reveal] { opacity:1 !important; transform:none !important; transition:none !important; }
+  .js-loaded [data-stagger] > * { opacity:1 !important; transform:none !important; transition:none !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- 01 — COVER -->
+<div class="cover-hero">
+  <div class="cover-wordmark" data-reveal>
+    <svg height="18" viewBox="0 0 142 28" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#ca)"><path fill="rgba(255,252,232,0.55)" d="m28.834 19.95-7.146 7.117v-13.5l7.146-6.15V19.95ZM15.797 6.901v12.983h5.107V13.21l7.33-6.308H15.797Zm-8.972 6.665v13.5l7.146-7.116V7.416l-7.146 6.15ZM.935 6.901v12.983H6.04V13.21l7.33-6.308H.934Zm32.955 6.506c0-4.002 2.983-6.753 6.51-6.753 1.454 0 2.884.492 3.772 1.425l.024-1.179h3.452v13.014h-3.452l-.024-1.179c-.888.933-2.318 1.424-3.773 1.424-3.526 0-6.509-2.75-6.509-6.752Zm7.027 3.216c1.775 0 3.082-1.252 3.082-3.216 0-1.964-1.307-3.217-3.082-3.217-1.8 0-3.131 1.252-3.131 3.217 0 1.964 1.331 3.216 3.131 3.216ZM54.946 6.58c3.55 0 5.72 2.162 5.72 5.648v7.686H56.77v-7.538c0-1.4-.666-2.186-1.824-2.186-1.16 0-1.825.786-1.825 2.186v7.538h-3.896v-7.686c0-3.486 2.17-5.647 5.72-5.647Zm6.73 6.876c0-4.1 2.959-6.875 6.756-6.875 3.575 0 6.854 2.43 6.312 7.882H65.35c.37 1.547 1.627 2.48 3.353 2.48 1.38 0 2.564-.59 3.526-1.793l2.515 2.087c-1.455 1.916-3.526 2.996-6.115 2.996-4.167 0-6.953-2.8-6.953-6.777Zm9.468-1.67c-.296-1.326-1.282-2.062-2.737-2.062-1.479 0-2.589.81-3.008 2.062h5.745Zm4.339 1.645c0-4.002 2.885-6.703 6.928-6.703.592 0 1.282.05 2.047.147v3.512a13.837 13.837 0 0 0-1.603-.123c-2.268 0-3.476 1.326-3.476 3.168 0 1.841 1.208 3.142 3.476 3.142.444 0 1.011-.049 1.603-.122v3.535c-.765.098-1.455.148-2.047.148-4.043 0-6.928-2.701-6.928-6.704ZM85 13.407c0-4.002 2.983-6.753 6.509-6.753 1.282 0 2.515.369 3.427 1.105a63.42 63.42 0 0 1-.074-3.118V.933h3.896v18.98h-3.452l-.025-1.178c-.887.933-2.317 1.424-3.772 1.424-3.526 0-6.51-2.75-6.51-6.752Zm7.027 3.216c1.775 0 3.082-1.252 3.082-3.216 0-1.964-1.307-3.217-3.082-3.217-1.8 0-3.132 1.252-3.132 3.217 0 1.964 1.332 3.216 3.132 3.216Zm7.889-3.192c0-4.002 3.107-6.85 6.978-6.85 3.871 0 6.977 2.848 6.977 6.85 0 4.003-3.106 6.851-6.977 6.851-3.871 0-6.978-2.848-6.978-6.85Zm6.978 3.242c1.75 0 3.082-1.302 3.082-3.241 0-1.94-1.332-3.242-3.082-3.242-1.751 0-3.082 1.302-3.082 3.242s1.331 3.24 3.082 3.24Zm8.925-6.286h-1.554V6.9h1.554V3.56l3.895-1.252V6.9h1.578v3.487h-1.578l-.024 9.527h-3.896l.025-9.527Zm5.868 3.02c0-4.002 2.983-6.753 6.509-6.753 1.455 0 2.885.492 3.772 1.425l.025-1.179h3.452v13.014h-3.452l-.025-1.179c-.887.933-2.317 1.424-3.772 1.424-3.526 0-6.509-2.75-6.509-6.752Zm7.027 3.216c1.775 0 3.082-1.252 3.082-3.216 0-1.964-1.307-3.217-3.082-3.217-1.8 0-3.132 1.252-3.132 3.217 0 1.964 1.332 3.216 3.132 3.216ZM137.17.933h3.896v18.98h-3.896V.934Z"/><path fill="#1B75BB" d="m28.834 19.95-7.146 7.117v-13.5l7.146-6.15V19.95ZM15.797 6.901v12.983h5.107V13.21l7.33-6.308H15.797Zm-8.972 6.665v13.5l7.146-7.116V7.416l-7.146 6.15ZM.935 6.901v12.983H6.04V13.21l7.33-6.308H.934Z"/></g><defs><clipPath id="ca"><path fill="#fff" d="M0 0h142v28H0z"/></clipPath></defs></svg>
+    <span class="cover-wordmark-sep" style="margin:0 10px;">&#215;</span>
+    <span class="cover-wordmark-client">BGC Permian Basin</span>
+  </div>
+  <div>
+    <div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.55);margin-bottom:16px;" data-reveal data-delay="1">Website Audit &amp; Proposal</div>
+    <div class="cover-headline" data-reveal data-delay="1">A New Website for the<br><em>Permian Basin.</em></div>
+    <div class="cover-sub" data-reveal data-delay="2">What&#8217;s working, what we&#8217;d elevate, how we&#8217;d build it &#8212; and what it costs.</div>
+    <div class="cover-pills" data-reveal data-delay="3">
+      <span class="cover-pill">The Audit</span>
+      <span class="cover-pill">What&#8217;s Working</span>
+      <span class="cover-pill">The Opportunities</span>
+      <span class="cover-pill">Our Process</span>
+      <span class="cover-pill">The Investment</span>
+    </div>
+  </div>
+  <div data-reveal data-delay="3">
+    <div class="cover-bottom-label">Prepared for</div>
+    <div class="cover-bottom-title">Boys &amp; Girls Clubs of the Permian Basin</div>
+    <div class="cover-bottom-date">Cici Reyes &amp; Leadership &middot; June 2026 &middot; Confidential</div>
+  </div>
+</div>
+
+
+<!-- 02 — WHY WE'RE HERE -->
+<div class="slide slide--dark">
+  <div class="slide-num" style="color:rgba(255,252,232,0.3);">02</div>
+  <div class="eyebrow" data-reveal>The Starting Point</div>
+  <div class="display-sm" data-reveal data-delay="1">Your website no longer<br>matches <em>the work.</em></div>
+  <div class="rule" data-reveal data-delay="2"></div>
+  <div class="body body-wide" data-reveal data-delay="3">You reached out because the site feels congested &#8212; information in five places, links that don&#8217;t click, a navigation that&#8217;s grown faster than it&#8217;s been organized. That&#8217;s normal: a lot of hands have touched it over the years. The good news is the raw material underneath is genuinely strong. This isn&#8217;t a repair job. It&#8217;s an elevation &#8212; making the website as clear, current, and memorable as what actually happens inside your clubs every day.</div>
+  <div class="persona-note" data-reveal data-delay="4" style="background:rgba(255,255,255,0.05);border-left-color:var(--sage-light);">
+    <p style="color:rgba(255,252,232,0.7);">&#8220;It needs a makeover.&#8221; We agree &#8212; and we&#8217;d start exactly where you did: an honest look at what&#8217;s working and what&#8217;s getting in the way.</p>
+  </div>
+  <div class="slide-footer" style="color:rgba(255,252,232,0.3);"><span>Boys &amp; Girls Clubs of the Permian Basin &middot; Anecdotal Media &middot; The Approach</span></div>
+</div>
+
+
+<!-- 03 — WHAT'S ALREADY WORKING -->
+<div class="slide slide--sage">
+  <div class="slide-num">03</div>
+  <div class="eyebrow" data-reveal>Credit Where It&#8217;s Due</div>
+  <div class="display-sm" data-reveal data-delay="1">What&#8217;s Already <em>Working.</em></div>
+  <div class="rule" data-reveal data-delay="2"></div>
+  <div class="body body-wide" data-reveal data-delay="3">Before a single critique, here&#8217;s what you already have that most nonprofits don&#8217;t &#8212; the foundation we&#8217;d build on, not replace.</div>
+  <div class="card-grid" data-stagger data-reveal data-delay="3">
+    <div class="card card--accent-top">
+      <div class="card-num">01</div>
+      <div class="card-title">Real photography</div>
+      <div class="card-body">Authentic photos of actual club kids on every page &#8212; not stock. This is the hardest asset to fake and you already own it.</div>
+    </div>
+    <div class="card card--accent-top">
+      <div class="card-num">02</div>
+      <div class="card-title">Strong, real impact data</div>
+      <div class="card-body">62% increased STEM interest, 99% of alumni graduating high school on time, 5,600 youth served, 480K programming hours. The numbers are excellent &#8212; they just deserve a better stage.</div>
+    </div>
+    <div class="card card--accent-top">
+      <div class="card-num">03</div>
+      <div class="card-title">It&#8217;s maintained</div>
+      <div class="card-body">A current gala page, live registration links, an up-to-date footer. Someone tends this site &#8212; it isn&#8217;t neglected, it&#8217;s outgrown.</div>
+    </div>
+    <div class="card card--accent-top">
+      <div class="card-num">04</div>
+      <div class="card-title">A clear bright spot</div>
+      <div class="card-body">Your Sneaker Ball page is clean, confident, and well-built &#8212; proof the team can present at a high bar. We&#8217;d bring that bar to the whole site.</div>
+    </div>
+  </div>
+  <div class="slide-footer"><span>Boys &amp; Girls Clubs of the Permian Basin &middot; Anecdotal Media &middot; The Approach</span></div>
+</div>
+
+
+<!-- 04 — THE OPPORTUNITIES -->
+<div class="slide slide--dark">
+  <div class="slide-num" style="color:rgba(255,252,232,0.3);">04</div>
+  <div class="eyebrow" data-reveal>What We&#8217;d Elevate</div>
+  <div class="display-sm" data-reveal data-delay="1">The <em>Opportunities.</em></div>
+  <div class="rule" data-reveal data-delay="2"></div>
+  <div class="body body-wide" data-reveal data-delay="3">Six things holding the site back today &#8212; each one specific, fixable, and drawn straight from what you already told us. Tap to expand.</div>
+  <div class="accordion-list" data-reveal data-delay="3">
+    <details class="acc-item" open>
+      <summary class="acc-header"><span class="acc-num">01</span><span class="acc-title">Structure &amp; navigation</span><span class="acc-icon">+</span></summary>
+      <div class="acc-body-wrap"><div class="acc-body">The same information lives in five different places, the copy runs on, and the top menu has grown to eight items that wrap onto two crowded rows. We&#8217;d rebuild the information architecture so every tab leads somewhere obvious &#8212; the clean, concise feel you admired at Greater Tarrant, but unmistakably yours.</div></div>
+    </details>
+    <details class="acc-item">
+      <summary class="acc-header"><span class="acc-num">02</span><span class="acc-title">Six clubs, six homes</span><span class="acc-icon">+</span></summary>
+      <div class="acc-body-wrap"><div class="acc-body">Right now every location shares one crowded space. We&#8217;d give each of your six clubs its own page &#8212; its own schedule, events, hours, and personality &#8212; that your RD team can keep current in seconds, without waiting on the club directors.</div></div>
+    </details>
+    <details class="acc-item">
+      <summary class="acc-header"><span class="acc-num">03</span><span class="acc-title">The giving experience</span><span class="acc-icon">+</span></summary>
+      <div class="acc-body-wrap"><div class="acc-body">Today there are several &#8220;Donate&#8221; buttons in one eyeful, and the one that works kicks donors out to a bare PayPal page &#8212; no suggested amounts, no monthly option, no impact framing. We&#8217;d replace it with one clean, on-brand giving flow (with a persistent donate button that follows the visitor) that keeps donors on your site and makes recurring gifts easy.</div></div>
+    </details>
+    <details class="acc-item">
+      <summary class="acc-header"><span class="acc-num">04</span><span class="acc-title">Built for phones, found on Google</span><span class="acc-icon">+</span></summary>
+      <div class="acc-body-wrap"><div class="acc-body">The club schedules are saved as image files &#8212; unreadable on a phone, and invisible to Google and screen readers. Several &#8220;clickable&#8221; emails don&#8217;t actually click. We&#8217;d rebuild these as real, responsive content so the site works on the device most families actually use, and so search engines can finally find you.</div></div>
+    </details>
+    <details class="acc-item">
+      <summary class="acc-header"><span class="acc-num">05</span><span class="acc-title">From stats to stories</span><span class="acc-icon">+</span></summary>
+      <div class="acc-body-wrap"><div class="acc-body">Your strongest material &#8212; the stories &#8212; is missing. There are no testimonials and no alumni journeys (a former club kid who&#8217;s now in college and back on staff each summer is exactly the story a parent or donor needs to see). People give to people. We&#8217;d put real faces, voices, and outcomes front and center, with the numbers as proof.</div></div>
+    </details>
+    <details class="acc-item">
+      <summary class="acc-header"><span class="acc-num">06</span><span class="acc-title">The missing pieces</span><span class="acc-icon">+</span></summary>
+      <div class="acc-body-wrap"><div class="acc-body">A few things visitors look for simply aren&#8217;t there: your leadership and board on the About page, an FAQ for the questions parents actually ask (transportation, what to expect, how to register), and a low-pressure &#8220;get to know us&#8221; step &#8212; like an annual report &#8212; that builds trust before the donate ask.</div></div>
+    </details>
+  </div>
+  <div class="slide-footer" style="color:rgba(255,252,232,0.3);"><span>Boys &amp; Girls Clubs of the Permian Basin &middot; Anecdotal Media &middot; The Approach</span></div>
+</div>
+
+
+<!-- 05 — HONOR THE BRAND, OWN YOUR STORY -->
+<div class="slide slide--sage">
+  <div class="slide-num">05</div>
+  <div class="eyebrow" data-reveal>The Balance</div>
+  <div class="display-sm" data-reveal data-delay="1">Honor the brand.<br>Own <em>your story.</em></div>
+  <div class="rule" data-reveal data-delay="2"></div>
+  <div class="two-col" data-reveal data-delay="3">
+    <div>
+      <div class="card-title" style="margin-bottom:10px;">The national standard</div>
+      <div class="body" style="margin-top:0;">We&#8217;ll follow the Boys &amp; Girls Clubs brand standards and keep the color palette you love. Anyone who knows the Club will feel instantly at home.</div>
+    </div>
+    <div>
+      <div class="card-title" style="margin-bottom:10px;">The Permian Basin difference</div>
+      <div class="body" style="margin-top:0;">But you won&#8217;t look like a carbon copy of every other nonprofit in town. Your photos, your clubs, your stories, your voice &#8212; the site will be unmistakably <em>this</em> community.</div>
+    </div>
+  </div>
+  <div class="slide-footer"><span>Boys &amp; Girls Clubs of the Permian Basin &middot; Anecdotal Media &middot; The Approach</span></div>
+</div>
+
+
+<!-- 06 — OUR PROCESS -->
+<div class="slide">
+  <div class="slide-num">06</div>
+  <div class="eyebrow" data-reveal>How We Build It</div>
+  <div class="display-sm" data-reveal data-delay="1">Our <em>Process.</em></div>
+  <div class="rule" data-reveal data-delay="2"></div>
+  <div class="body body-wide" data-reveal data-delay="3">Five clear phases, with your eyes on the work at every step &#8212; so there are no surprises and the direction is confirmed before the heavy lifting. Start to finish, about <strong>4&#8211;6 weeks.</strong></div>
+  <div class="capture-grid" data-stagger data-reveal data-delay="3">
+    <div class="cap-card">
+      <div class="cap-num">01</div>
+      <div class="cap-title">Research &amp; Structure</div>
+      <div class="cap-body">We map the full sitemap and define how the site should look and feel &#8212; the foundation everything else is built on.</div>
+    </div>
+    <div class="cap-card">
+      <div class="cap-num">02</div>
+      <div class="cap-title">Wireframes</div>
+      <div class="cap-body">The pages and sections you&#8217;ll need, laid out in rough structure &#8212; so we agree on what goes where before any design.</div>
+    </div>
+    <div class="cap-card">
+      <div class="cap-num">03</div>
+      <div class="cap-title">Design Concept</div>
+      <div class="cap-body">We design the homepage hero and a couple of key sections first, so you can confirm we&#8217;re moving in the right direction early.</div>
+    </div>
+    <div class="cap-card">
+      <div class="cap-num">04</div>
+      <div class="cap-title">Full Site Design</div>
+      <div class="cap-body">Every page and section designed in full &#8212; the complete look of the new site, ready for your sign-off.</div>
+    </div>
+    <div class="cap-card">
+      <div class="cap-num">05</div>
+      <div class="cap-title">Site Development</div>
+      <div class="cap-body">We build the final website on a modern, easy-to-update platform &#8212; fast, mobile-first, and simple for your team to keep current.</div>
+    </div>
+    <div class="cap-card" style="background:var(--sage);color:var(--cream);">
+      <div class="cap-num" style="color:var(--sage-light);opacity:0.5;">&#8594;</div>
+      <div class="cap-title" style="color:var(--cream);">Your review at every phase</div>
+      <div class="cap-body" style="opacity:0.75;">You see and approve each phase before we move to the next. The relationship stays fully with you; we handle the rest.</div>
+    </div>
+  </div>
+  <div class="slide-footer"><span>Boys &amp; Girls Clubs of the Permian Basin &middot; Anecdotal Media &middot; The Approach</span></div>
+</div>
+
+
+<!-- 07 — WHAT THE NEW SITE DELIVERS -->
+<div class="slide slide--dark">
+  <div class="slide-num" style="color:rgba(255,252,232,0.3);">07</div>
+  <div class="eyebrow" data-reveal>The v1 Site</div>
+  <div class="display-sm" data-reveal data-delay="1">What the New Site <em>Delivers.</em></div>
+  <div class="rule" data-reveal data-delay="2"></div>
+  <div class="body body-wide" data-reveal data-delay="3">Everything from the audit, answered &#8212; a site that&#8217;s clear for parents, compelling for donors, and effortless for your team to run.</div>
+  <div class="outcomes-grid" data-stagger data-reveal data-delay="3">
+    <div class="outcome-item">
+      <div class="oi-arrow"><svg viewBox="0 0 14 14" fill="none"><path d="M7 11V3M7 3L3 7M7 3l4 4" stroke="var(--sage-light)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div><div class="oi-head">A clean, clear structure</div><div class="oi-body">Rebuilt navigation and information architecture &#8212; every page in its right place, nothing buried, nothing repeated five times.</div></div>
+    </div>
+    <div class="outcome-item">
+      <div class="oi-arrow"><svg viewBox="0 0 14 14" fill="none"><path d="M7 11V3M7 3L3 7M7 3l4 4" stroke="var(--sage-light)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div><div class="oi-head">A page for every club</div><div class="oi-body">Six location pages with their own schedules, events, and hours &#8212; easy for your team to keep current.</div></div>
+    </div>
+    <div class="outcome-item">
+      <div class="oi-arrow"><svg viewBox="0 0 14 14" fill="none"><path d="M7 11V3M7 3L3 7M7 3l4 4" stroke="var(--sage-light)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div><div class="oi-head">Story-first homepage</div><div class="oi-body">Real faces, testimonials, and alumni outcomes up front &#8212; with your impact numbers as proof.</div></div>
+    </div>
+    <div class="outcome-item">
+      <div class="oi-arrow"><svg viewBox="0 0 14 14" fill="none"><path d="M7 11V3M7 3L3 7M7 3l4 4" stroke="var(--sage-light)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div><div class="oi-head">An upgraded giving experience</div><div class="oi-body">On-brand, on-site donations with suggested and recurring amounts &#8212; and a donate button that&#8217;s always within reach.</div></div>
+    </div>
+    <div class="outcome-item">
+      <div class="oi-arrow"><svg viewBox="0 0 14 14" fill="none"><path d="M7 11V3M7 3L3 7M7 3l4 4" stroke="var(--sage-light)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div><div class="oi-head">Mobile-first &amp; searchable</div><div class="oi-body">Responsive schedules and programs, working links, and the technical groundwork for Google &#8212; the things images and screenshots can&#8217;t do.</div></div>
+    </div>
+    <div class="outcome-item">
+      <div class="oi-arrow"><svg viewBox="0 0 14 14" fill="none"><path d="M7 11V3M7 3L3 7M7 3l4 4" stroke="var(--sage-light)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div><div class="oi-head">The pages you&#8217;re missing</div><div class="oi-body">Leadership &amp; board on About, a real FAQ, and a trust-building &#8220;get to know us&#8221; step before the ask.</div></div>
+    </div>
+    <div class="outcome-item expand">
+      <div class="oi-arrow"><svg viewBox="0 0 14 14" fill="none"><path d="M3 7h8M11 7L7 3M11 7l-4 4" stroke="var(--cream)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div><div class="oi-head">Built so the next person can run it</div><div class="oi-body">A modern, easy-to-update platform and a clear structure &#8212; so this becomes the foundation your department builds on for years, not something that decays the moment someone moves on.</div></div>
+    </div>
+  </div>
+  <div class="slide-footer" style="color:rgba(255,252,232,0.3);"><span>Boys &amp; Girls Clubs of the Permian Basin &middot; Anecdotal Media &middot; The Approach</span></div>
+</div>
+
+
+<!-- 08 — THE INVESTMENT -->
+<div class="slide slide--sage">
+  <div class="slide-num">08</div>
+  <div class="eyebrow" data-reveal>The Investment</div>
+  <div class="display-sm" data-reveal data-delay="1">The <em>Investment.</em></div>
+  <div class="rule" data-reveal data-delay="2"></div>
+  <div class="body body-wide" data-reveal data-delay="3">One straightforward base build, plus an optional engine to keep growing. No surprises.</div>
+  <div class="card-grid" style="grid-template-columns:1fr 1fr;" data-stagger data-reveal data-delay="3">
+    <div class="card card--accent-top" style="background:var(--ink);color:var(--cream);">
+      <div class="cc-num" style="color:var(--sage-light);letter-spacing:0.18em;text-transform:uppercase;font-size:9px;margin-bottom:8px;">The Base Build</div>
+      <div class="card-title" style="color:var(--cream);font-size:22px;">$15,900 <span style="font-size:14px;opacity:0.6;">one-time</span></div>
+      <div class="card-body" style="opacity:0.7;color:rgba(255,252,232,0.75);margin-top:6px;">+ $250/mo care &#8212; hosting, content updates, and keeping the site current. Everything in the five-phase process: research, wireframes, design, full build, and launch of your new v1 site.</div>
+    </div>
+    <div class="card card--accent-top">
+      <div class="cc-num" style="color:var(--sage);letter-spacing:0.18em;text-transform:uppercase;font-size:9px;margin-bottom:8px;">Optional Add-On</div>
+      <div class="card-title" style="font-size:22px;">SEO Growth &#8212; $750/mo</div>
+      <div class="card-body" style="opacity:0.75;margin-top:6px;">An ongoing local-search engine so families searching &#8220;after-school program in Odessa or Midland&#8221; actually find you &#8212; content, technical SEO, and steady visibility work. Add it now or whenever you&#8217;re ready.</div>
+    </div>
+  </div>
+  <div class="persona-note" data-reveal data-delay="4" style="margin-top:24px;">
+    <p style="font-style:normal;opacity:0.7;"><strong style="color:var(--sage);">Down the road (Phase 2):</strong> online registration, event ticketing, and a news/blog hub &#8212; natural next phases once v1 is live. Nothing to decide today.</p>
+  </div>
+  <div class="slide-footer"><span>Boys &amp; Girls Clubs of the Permian Basin &middot; Anecdotal Media &middot; The Approach</span></div>
+</div>
+
+
+<!-- 09 — CLOSING -->
+<div class="closing-hero">
+  <div data-reveal>
+    <svg height="18" viewBox="0 0 142 28" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#ck)"><path fill="rgba(255,252,232,0.45)" d="m28.834 19.95-7.146 7.117v-13.5l7.146-6.15V19.95ZM15.797 6.901v12.983h5.107V13.21l7.33-6.308H15.797Zm-8.972 6.665v13.5l7.146-7.116V7.416l-7.146 6.15ZM.935 6.901v12.983H6.04V13.21l7.33-6.308H.934Zm32.955 6.506c0-4.002 2.983-6.753 6.51-6.753 1.454 0 2.884.492 3.772 1.425l.024-1.179h3.452v13.014h-3.452l-.024-1.179c-.888.933-2.318 1.424-3.773 1.424-3.526 0-6.509-2.75-6.509-6.752Zm7.027 3.216c1.775 0 3.082-1.252 3.082-3.216 0-1.964-1.307-3.217-3.082-3.217-1.8 0-3.131 1.252-3.131 3.217 0 1.964 1.331 3.216 3.131 3.216ZM54.946 6.58c3.55 0 5.72 2.162 5.72 5.648v7.686H56.77v-7.538c0-1.4-.666-2.186-1.824-2.186-1.16 0-1.825.786-1.825 2.186v7.538h-3.896v-7.686c0-3.486 2.17-5.647 5.72-5.647Zm6.73 6.876c0-4.1 2.959-6.875 6.756-6.875 3.575 0 6.854 2.43 6.312 7.882H65.35c.37 1.547 1.627 2.48 3.353 2.48 1.38 0 2.564-.59 3.526-1.793l2.515 2.087c-1.455 1.916-3.526 2.996-6.115 2.996-4.167 0-6.953-2.8-6.953-6.777Zm9.468-1.67c-.296-1.326-1.282-2.062-2.737-2.062-1.479 0-2.589.81-3.008 2.062h5.745Zm4.339 1.645c0-4.002 2.885-6.703 6.928-6.703.592 0 1.282.05 2.047.147v3.512a13.837 13.837 0 0 0-1.603-.123c-2.268 0-3.476 1.326-3.476 3.168 0 1.841 1.208 3.142 3.476 3.142.444 0 1.011-.049 1.603-.122v3.535c-.765.098-1.455.148-2.047.148-4.043 0-6.928-2.701-6.928-6.704ZM85 13.407c0-4.002 2.983-6.753 6.509-6.753 1.282 0 2.515.369 3.427 1.105a63.42 63.42 0 0 1-.074-3.118V.933h3.896v18.98h-3.452l-.025-1.178c-.887.933-2.317 1.424-3.772 1.424-3.526 0-6.51-2.75-6.51-6.752Zm7.027 3.216c1.775 0 3.082-1.252 3.082-3.216 0-1.964-1.307-3.217-3.082-3.217-1.8 0-3.132 1.252-3.132 3.217 0 1.964 1.332 3.216 3.132 3.216Zm7.889-3.192c0-4.002 3.107-6.85 6.978-6.85 3.871 0 6.977 2.848 6.977 6.85 0 4.003-3.106 6.851-6.977 6.851-3.871 0-6.978-2.848-6.978-6.85Zm6.978 3.242c1.75 0 3.082-1.302 3.082-3.241 0-1.94-1.332-3.242-3.082-3.242-1.751 0-3.082 1.302-3.082 3.242s1.331 3.24 3.082 3.24Zm8.925-6.286h-1.554V6.9h1.554V3.56l3.895-1.252V6.9h1.578v3.487h-1.578l-.024 9.527h-3.896l.025-9.527Zm5.868 3.02c0-4.002 2.983-6.753 6.509-6.753 1.455 0 2.885.492 3.772 1.425l.025-1.179h3.452v13.014h-3.452l-.025-1.179c-.887.933-2.317 1.424-3.772 1.424-3.526 0-6.509-2.75-6.509-6.752Zm7.027 3.216c1.775 0 3.082-1.252 3.082-3.216 0-1.964-1.307-3.217-3.082-3.217-1.8 0-3.132 1.252-3.132 3.217 0 1.964 1.332 3.216 3.132 3.216ZM137.17.933h3.896v18.98h-3.896V.934Z"/><path fill="#1B75BB" d="m28.834 19.95-7.146 7.117v-13.5l7.146-6.15V19.95ZM15.797 6.901v12.983h5.107V13.21l7.33-6.308H15.797Zm-8.972 6.665v13.5l7.146-7.116V7.416l-7.146 6.15ZM.935 6.901v12.983H6.04V13.21l7.33-6.308H.934Z"/></g><defs><clipPath id="ck"><path fill="#fff" d="M0 0h142v28H0z"/></clipPath></defs></svg>
+  </div>
+  <div>
+    <div class="cover-headline" data-reveal data-delay="1">Let&#8217;s<br><em>build it.</em></div>
+    <div class="cover-sub" data-reveal data-delay="2">The audit is yours. When you&#8217;re ready, the base build is $15,900 plus $250/mo to keep it current &#8212; with an optional SEO engine at $750/mo. We&#8217;d be honored to make your website as memorable as the work.</div>
+  </div>
+  <div data-reveal data-delay="3">
+    <div class="cover-bottom-label">Prepared by</div>
+    <div class="cover-bottom-title">Anecdotal Media</div>
+    <div class="cover-bottom-date">anecdotal.media</div>
+  </div>
+</div>
+
+<script>
+(function(){
+  try {
+    document.documentElement.classList.add('js-loaded');
+    var els = document.querySelectorAll('[data-reveal]');
+    if (!els.length) return;
+    // Cover + closing hero elements
+    var heroEls = document.querySelectorAll('.cover-hero [data-reveal], .closing-hero [data-reveal]');
+    setTimeout(function(){ heroEls.forEach(function(el){ el.classList.add('is-visible'); }); }, 100);
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ e.target.classList.add('is-visible'); io.unobserve(e.target); }
+      });
+    },{ threshold:0.15 });
+    els.forEach(function(el){ if(!el.closest('.cover-hero') && !el.closest('.closing-hero')) io.observe(el); });
+    // Also observe stagger containers
+    var staggers = document.querySelectorAll('[data-stagger]');
+    staggers.forEach(function(el){ io.observe(el); });
+  } catch(e){}
+})();
+</script>
+</body>
+</html>
